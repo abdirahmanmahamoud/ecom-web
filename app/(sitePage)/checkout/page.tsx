@@ -2,7 +2,7 @@
 
 import useCart from "@/hooks/cart";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { userType } from "../_components/AvatarProfile";
@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import toast from "react-hot-toast";
+import { CheckoutRes } from "@/fetch/Checkout";
 
 const fromSchema = z.object({
   firstName: z.string().min(2, "First Name Is Required"),
@@ -33,10 +34,15 @@ const fromSchema = z.object({
   phone: z.string().min(6, "Phone Is Required"),
 });
 
+type apiResponse = {
+  status: string;
+  message: string;
+};
 const CheckoutPage = () => {
   const { products, total } = useCart();
   const [loading, setLoading] = useState(false);
   const user: userType = JSON.parse(localStorage.getItem("user") || "{}");
+  const route = useRouter();
 
   if (!products || products.length === 0) {
     return redirect("/");
@@ -64,7 +70,19 @@ const CheckoutPage = () => {
 
   const onSubmit = async (value: z.infer<typeof fromSchema>) => {
     setLoading(true);
-    console.log(value);
+    const res: apiResponse | any = await CheckoutRes({
+      data: { ...value, products, total },
+    });
+
+    if (res?.status === "error") {
+      toast.error(res?.message);
+      setLoading(false);
+    }
+
+    if (res?.status === "success") {
+      toast.success(res?.message);
+      route.push("/");
+    }
   };
 
   return (
