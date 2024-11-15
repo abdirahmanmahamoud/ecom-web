@@ -27,10 +27,10 @@ const Header = async () => {
             Product
           </Link>
           <Link
-            href="/card"
+            href="/cart"
             className="text-lg font-semibold hover:text-blue-800 hover:font-bold"
           >
-            Card
+            Cart
           </Link>
         </div>
         <div className="flex items-center space-x-3">

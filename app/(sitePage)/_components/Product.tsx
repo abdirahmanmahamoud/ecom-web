@@ -2,7 +2,7 @@ import { AllProduct } from "@/fetch/Product";
 import Image from "next/image";
 import Link from "next/link";
 
-type ProductType = {
+export type ProductType = {
   id: string;
   name: string;
   description: string;
@@ -22,13 +22,13 @@ const Product = async () => {
             href={`/product/${product.id}`}
             className="w-full shadow-2xl shadow-gray-200 bg-white"
           >
-            <div className="w-full h-72">
+            <div className="w-full h-[240px]">
               <Image
                 src={product.image}
-                alt={product.name}
-                width={300} // Set width based on image or desired display size
-                height={300} // Set height based on image or desired display size
-                className="w-full h-full  object-fill"
+                alt={`${product.name} image`}
+                width={100}
+                height={240}
+                className="mb-6 h-[240px] w-full rounded-md object-contain"
               />
             </div>
             <div className="py-2 px-3">
