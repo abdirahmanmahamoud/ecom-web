@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Burundi",
+    "phoneCode": "257"
+  },
+  {
+    "name": "Comoros",
+    "phoneCode": "269"
+  },
+  {
+    "name": "Djibouti",
+    "phoneCode": "253"
+  },
+  {
+    "name": "Eritrea",
+    "phoneCode": "291"
+  },
+  {
+    "name": "Ethiopia",
+    "phoneCode": "251"
+  },
+  {
+    "name": "Kenya",
+    "phoneCode": "254"
+  },
+  {
+    "name": "Madagascar",
+    "phoneCode": "261"
+  },
+  {
+    "name": "Malawi",
+    "phoneCode": "265"
+  },
+  {
+    "name": "Mauritius",
+    "phoneCode": "230"
+  },
+  {
+    "name": "Mozambique",
+    "phoneCode": "258"
+  },
+  {
+    "name": "Rwanda",
+    "phoneCode": "250"
+  },
+  {
+    "name": "Seychelles",
+    "phoneCode": "248"
+  },
+  {
+    "name": "Somalia",
+    "phoneCode": "252"
+  },
+  {
+    "name": "South Sudan",
+    "phoneCode": "211"
+  },
+  {
+    "name": "Tanzania",
+    "phoneCode": "255"
+  },
+  {
+    "name": "Uganda",
+    "phoneCode": "256"
+  },
+  {
+    "name": "Zambia",
+    "phoneCode": "260"
+  },
+  {
+    "name": "Zimbabwe",
+    "phoneCode": "263"
+  }
+]

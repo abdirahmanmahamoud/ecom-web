@@ -15,7 +15,10 @@ const CartPage = () => {
           <div className="w-full flex flex-col lg:flex-row lg:justify-between">
             <div className="w-[70%]">
               {products.map((product) => (
-                <div className="flex items-center justify-between shadow-lg">
+                <div
+                  className="flex items-center justify-between shadow-lg"
+                  key={product.id}
+                >
                   <div className="flex items-center space-x-3 w-[80%]">
                     <img
                       src={product.image}
