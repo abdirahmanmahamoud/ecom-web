@@ -10,21 +10,39 @@ import {
 import { Form, FormField, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { SignUpApi } from "@/fetch/auth";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { z } from "zod";
 
 const fromSchema = z.object({
   name: z.string().min(4, "Name Is Required"),
   email: z.string().email(),
-  password: z.string().min(2, "Password Is Required"),
+  password: z.string().min(6, "Password 6 character required"),
 });
+
+type apiResponse = {
+  status: string;
+  message: string;
+  user?: {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+    createdAt: string;
+    expires: number;
+  };
+};
 
 const SignUpPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
+
   const from = useForm<z.infer<typeof fromSchema>>({
     resolver: zodResolver(fromSchema),
     defaultValues: {
@@ -34,9 +52,32 @@ const SignUpPage = () => {
     },
   });
 
-  const onSubmit = (value: z.infer<typeof fromSchema>) => {
+  const onSubmit = async (value: z.infer<typeof fromSchema>) => {
     setLoading(true);
-    console.log(value);
+
+    const res: apiResponse | any = await SignUpApi(value);
+
+    if (res?.status === "error") {
+      toast.error(res?.message);
+      setLoading(false);
+    }
+
+    if (res?.status === "success") {
+      toast.success(res?.message);
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: res?.user?.id,
+          name: res?.user?.name,
+          email: res?.user?.email,
+          role: res?.user?.role,
+          createdAt: res?.user?.createdAt,
+          expires: res?.user?.expires,
+        })
+      );
+      setLoading(false);
+      router.push("/");
+    }
   };
 
   return (
